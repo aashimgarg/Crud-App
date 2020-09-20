@@ -5,7 +5,7 @@ const app = express();
 const usersRoutes = require("./routes/usersRoutes");
 
 const portNumber = process.env.PORT || 3000;
-const url = process.env.URL_MONGO_DB;
+const url = 'mongodb+srv://aashimgarg:aashimgarg@shop-app.7uqv5.mongodb.net/aashim?retryWrites=true&w=majority';
 
 const connect = mongoose.connect(url, {
   useNewUrlParser: true,
@@ -35,11 +35,5 @@ app.use(bodyParser.json());
 app.use("/", usersRoutes);
 
 app.use((req, res, next) => {
-  const err = new Error("Not Found");
-  res.statusCode = 404;
-  next(err);
-});
-
-app.use((err, req, res, next) => {
-  res.send("Not Found " + res.statusCode);
+  res.status(404).render('Not Found');
 });
